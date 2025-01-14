@@ -29,7 +29,7 @@ class PostManager:
                                 )
                                 """)
             self.cursor.execute("""
-                                CREATE TABLE `members` (
+                                CREATE TABLE IF NOT EXISTS `members` (
                                 `idx` int(10) unsigned NOT NULL AUTO_INCREMENT,
                                 `uid` varchar(50) DEFAULT NULL,
                                 `uname` varchar(50) DEFAULT NULL,
