@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">{{ post.title }}</h3>
+        <div class="text-muted">
+            {% if post.get('uname') is none %}
+                작성자: 없음
+            {% else %}
+                작성자: {{ post.get('uname') }}
+            {% endif %} |
+            작성일: {{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }} |
+            조회수: {{ post.views }}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="mb-4">
+            {{ post.content.replace('\n','<br>') | safe }}
+        </div>
+        {% if post.filename %}
+        <div class="mb-3">
+            <strong>첨부파일:</strong>
+            <a href="{{ url_for('uploaded_file', filename=post.filename) }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-download"></i> {{ post.filename }}
+            </a>
+            {% if post.filename.lower().endswith(('.png','.jpg','.gif')) %}
+            <br><br>
+            <img src="{{ url_for('uploaded_file', filename=post.filename) }}" width="300"/>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+    <div class="card-footer">
+        <div class="d-flex justify-content-between">
+            <div>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                    <i class="fas fa-list"></i> 목록
+                </a>
+            </div>
+            <div>
+                <a href="{{ url_for('edit_post', id=post.id) }}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i> 수정
+                </a>
+                <a href="{{ url_for('delete_post', id=post.id) }}" 
+                   class="btn btn-danger"
+                   onclick="return confirm('정말로 삭제하시겠습니까?');">
+                    <i class="fas fa-trash"></i> 삭제
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
