@@ -5,14 +5,16 @@ class PostManager:
     def __init__(self):
         self.connection = None
         self.cursor = None
-
+    ## 추후 SQL 암호화 저장 및 비교 구문
+    # INSERT INTO members (uid,uname,`password`) VALUES ('kim','김구',PASSWORD('1234'))
+    # SELECT * FROM members WHERE uid='kim' AND `password` = PASSWORD('1234')
     def connect(self):
         try:
             self.connection = mysql.connector.connect(
                 host="localhost",
                 user="sejong",
                 password="1234",
-                database="board_db2"
+                database="board_db3"
             )
             self.cursor = self.connection.cursor(dictionary=True)
             self.cursor.execute("""
