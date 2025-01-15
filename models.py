@@ -14,7 +14,7 @@ class PostManager:
                 host="localhost",
                 user="sejong",
                 password="1234",
-                database="board_db3"
+                database="board_db2"
             )
             self.cursor = self.connection.cursor(dictionary=True)
             self.cursor.execute("""
